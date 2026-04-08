@@ -93,6 +93,7 @@ with open("chat.txt", "r", encoding="utf-8") as f:
             d[fields[0].split(",")[0]]=1
         if ("EDITED" in line):
             editCount[per]+=1
+            words[per]-=4
         line1=line #end
 m=0
 for i in range(n):
