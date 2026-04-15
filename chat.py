@@ -4,6 +4,20 @@ import random
 import re
 from datetime import datetime,timedelta
 
+
+"""
+1. Vectorization - converting to numpy
+2. HTML/CSS Multi
+3. Saare ek jagah
+4. Slideshow
+5. NLTK
+6. Online //lalla
+7. Comparison slides - graphs for several stuff in one/subplots
+8. @ //lalla
+"""
+""""
+Merge commit: NLTK, Vectorization
+"""
 '''
 IDEAS
 1) instead of calling each function in loop together define probabilities of each function being called based on tap.
@@ -184,7 +198,7 @@ def EmojiTalker():
     s=""
     while(z>0):
         x=np.random.rand()
-        if (x<=0.50):
+        if (x<=0.10):
             y=np.random.choice(emojis)
             s+=inv_vocab[y]+" "
         else:
@@ -288,9 +302,9 @@ def bestFrds():
     global prob
     global players
     if (prev==8):
-        pMod(9,30)
+        pMod(9,35)
     elif (prev==9):
-        pMod(8,30)
+        pMod(8,35)
 def ChatGen():
     global ttime
     global prob

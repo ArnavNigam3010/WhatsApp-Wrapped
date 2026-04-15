@@ -1,253 +1,289 @@
 {
     "dict": {
-        "Chirayu Jain": 0,
+        "Sanidhya Saraf": 0,
         "Ujjwal Kesari": 1,
         "Sahil Deo": 2,
-        "Sanidhya Saraf": 3,
-        "Arnav Nigam": 4,
-        "Kahan Atara": 5,
+        "Parth Vartak": 3,
+        "Piusa Das": 4,
+        "Chirayu Jain": 5,
         "Garv Pahwa": 6,
-        "Piusa Das": 7,
-        "Parth Vartak": 8,
-        "Vishad Jain": 9
+        "Arnav Nigam": 7,
+        "Vishad Jain": 8,
+        "Kahan Atara": 9
     },
     "inv_dict": {
-        "0": "Chirayu Jain",
+        "0": "Sanidhya Saraf",
         "1": "Ujjwal Kesari",
         "2": "Sahil Deo",
-        "3": "Sanidhya Saraf",
-        "4": "Arnav Nigam",
-        "5": "Kahan Atara",
+        "3": "Parth Vartak",
+        "4": "Piusa Das",
+        "5": "Chirayu Jain",
         "6": "Garv Pahwa",
-        "7": "Piusa Das",
-        "8": "Parth Vartak",
-        "9": "Vishad Jain"
+        "7": "Arnav Nigam",
+        "8": "Vishad Jain",
+        "9": "Kahan Atara"
     },
+    "Long Messager": 7,
+    "Night Owl": 0,
+    "Conversation Starter": 2,
+    "Ghost": 8,
+    "Hype Person": 6,
+    "Message Editor": 5,
+    "Long Vocabulary User": 1,
     "total_messages_arr": [
-        626,
-        648,
-        655,
-        817,
+        821,
+        664,
+        589,
         663,
-        468,
-        1751,
-        450,
-        703,
-        458
+        489,
+        647,
+        1770,
+        632,
+        534,
+        474
     ],
     "total_words_arr": [
-        5569,
-        5883,
-        5785,
-        7301,
-        22384,
-        4067,
-        15536,
-        3940,
-        6359,
-        4093
+        7187,
+        6090,
+        5058,
+        6220,
+        4477,
+        5873,
+        15713,
+        22539,
+        4773,
+        4183
     ],
     "night_msg_arr": [
-        21,
-        29,
+        174,
+        26,
         22,
-        166,
-        29,
-        16,
+        31,
+        9,
+        25,
         57,
-        12,
-        23,
-        7
+        22,
+        21,
+        17
     ],
     "count_rep_arr": [
-        580,
-        580,
-        575,
-        658,
-        602,
-        457,
-        1258,
-        440,
-        621,
-        186
+        663,
+        596,
+        530,
+        593,
+        480,
+        562,
+        1289,
+        570,
+        191,
+        467
     ],
     "convoStart_arr": [
-        85,
-        94,
-        196,
-        112,
-        79,
-        82,
-        0,
-        71,
-        112,
-        30
+        99,
+        88,
+        205,
+        90,
+        80,
+        89,
+        1,
+        108,
+        25,
+        72
     ],
     "emoji_arr": [
         {
-            "\ud83d\ude02": 7,
-            "\ud83d\ude2d\ud83d\udc80": 6,
-            "\ud83d\ude22": 6,
-            "\ud83d\ude2d": 6,
-            "\ud83d\udc4d\ud83d\udc4d": 4,
-            "\ud83d\ude02\ud83d\ude02": 4
-        },
-        {
-            "\ud83d\ude2d": 5,
-            "\ud83d\ude02": 3,
-            "\ud83d\ude22": 3,
-            "\ud83d\udc4d\ud83d\udc4d": 2,
-            "\ud83d\ude2d\ud83d\udc80": 1
-        },
-        {
-            "\ud83d\ude2d": 13,
+            "\ud83d\ude2d\ud83d\udc80": 11,
+            "\ud83d\udc4d\ud83d\udc4d": 9,
+            "\ud83d\ude02": 9,
             "\ud83d\ude02\ud83d\ude02": 7,
-            "\ud83d\ude02": 7,
-            "\ud83d\udc4d\ud83d\udc4d": 5,
-            "\ud83d\ude2d\ud83d\udc80": 5,
-            "\ud83d\ude22": 5
+            "\ud83d\ude22": 6,
+            "\ud83d\ude2d": 5
         },
         {
-            "\ud83d\ude02\ud83d\ude02": 11,
-            "\ud83d\ude2d\ud83d\udc80": 10,
-            "\ud83d\ude22": 10,
+            "\ud83d\ude2d": 3,
+            "\ud83d\udc4d\ud83d\udc4d": 2,
+            "\ud83d\ude02": 1,
+            "\ud83d\ude2d\ud83d\udc80": 1,
+            "\ud83d\ude02\ud83d\ude02": 1
+        },
+        {
+            "\ud83d\udc4d\ud83d\udc4d": 6,
+            "\ud83d\ude22": 6,
+            "\ud83d\ude02": 5,
+            "\ud83d\ude2d": 5,
+            "\ud83d\ude2d\ud83d\udc80": 2,
+            "\ud83d\ude02\ud83d\ude02": 1
+        },
+        {
+            "\ud83d\ude02": 127,
+            "\ud83d\ude2d": 126,
+            "\ud83d\ude22": 116,
+            "\ud83d\ude2d\ud83d\udc80": 107,
+            "\ud83d\ude02\ud83d\ude02": 99,
+            "\ud83d\udc4d\ud83d\udc4d": 98
+        },
+        {
+            "\ud83d\udc4d\ud83d\udc4d": 10,
+            "\ud83d\ude22": 8,
+            "\ud83d\ude02\ud83d\ude02": 7,
+            "\ud83d\ude2d\ud83d\udc80": 5,
+            "\ud83d\ude2d": 2,
+            "\ud83d\ude02": 2
+        },
+        {
             "\ud83d\udc4d\ud83d\udc4d": 10,
             "\ud83d\ude02": 9,
-            "\ud83d\ude2d": 7
+            "\ud83d\ude02\ud83d\ude02": 9,
+            "\ud83d\ude22": 6,
+            "\ud83d\ude2d\ud83d\udc80": 6,
+            "\ud83d\ude2d": 5
         },
         {
-            "\ud83d\ude02\ud83d\ude02": 28,
-            "\ud83d\ude02": 22,
-            "\ud83d\ude2d": 21,
-            "\ud83d\ude2d\ud83d\udc80": 21,
-            "\ud83d\udc4d\ud83d\udc4d": 21,
-            "\ud83d\ude22": 19
+            "\ud83d\ude2d": 19,
+            "\ud83d\ude2d\ud83d\udc80": 17,
+            "\ud83d\ude22": 17,
+            "\ud83d\ude02\ud83d\ude02": 13,
+            "\ud83d\ude02": 12,
+            "\ud83d\udc4d\ud83d\udc4d": 9
         },
         {
-            "\ud83d\ude02": 7,
-            "\ud83d\ude2d": 6,
-            "\ud83d\ude02\ud83d\ude02": 6,
-            "\ud83d\udc4d\ud83d\udc4d": 3,
-            "\ud83d\ude2d\ud83d\udc80": 3,
-            "\ud83d\ude22": 2
+            "\ud83d\ude02": 21,
+            "\ud83d\ude02\ud83d\ude02": 19,
+            "\ud83d\ude2d\ud83d\udc80": 19,
+            "\ud83d\udc4d\ud83d\udc4d": 18,
+            "\ud83d\ude2d": 17,
+            "\ud83d\ude22": 15
         },
         {
-            "\ud83d\ude02\ud83d\ude02": 20,
-            "\ud83d\udc4d\ud83d\udc4d": 17,
-            "\ud83d\ude22": 15,
-            "\ud83d\ude2d\ud83d\udc80": 15,
-            "\ud83d\ude2d": 14,
-            "\ud83d\ude02": 14
-        },
-        {
-            "\ud83d\ude22": 5,
-            "\ud83d\ude2d\ud83d\udc80": 4,
+            "\ud83d\ude2d\ud83d\udc80": 11,
+            "\ud83d\ude22": 8,
+            "\ud83d\ude02\ud83d\ude02": 5,
+            "\ud83d\ude02": 4,
             "\ud83d\ude2d": 3,
-            "\ud83d\ude02": 2,
-            "\ud83d\udc4d\ud83d\udc4d": 2,
-            "\ud83d\ude02\ud83d\ude02": 2
+            "\ud83d\udc4d\ud83d\udc4d": 3
         },
         {
-            "\ud83d\udc4d\ud83d\udc4d": 568,
-            "\ud83d\ude2d": 566,
-            "\ud83d\ude02\ud83d\ude02": 549,
-            "\ud83d\ude22": 535,
-            "\ud83d\ude02": 510,
-            "\ud83d\ude2d\ud83d\udc80": 490
-        },
-        {
-            "\ud83d\ude2d\ud83d\udc80": 5,
-            "\ud83d\ude2d": 4,
-            "\ud83d\ude02\ud83d\ude02": 4,
-            "\ud83d\udc4d\ud83d\udc4d": 3,
-            "\ud83d\ude02": 3,
-            "\ud83d\ude22": 2
+            "\ud83d\ude02\ud83d\ude02": 7,
+            "\ud83d\ude2d": 6,
+            "\ud83d\udc4d\ud83d\udc4d": 6,
+            "\ud83d\ude22": 4,
+            "\ud83d\ude2d\ud83d\udc80": 3
         }
+    ],
+    "Emoji Talker": 3,
+    "total_emoji_per_person": [
+        47.0,
+        8.0,
+        25.0,
+        673.0,
+        34.0,
+        45.0,
+        87.0,
+        109.0,
+        34.0,
+        26.0
     ],
     "top3_emoji_arr": [
         [
-            "\ud83d\ude02",
             "\ud83d\ude2d\ud83d\udc80",
-            "\ud83d\ude22"
-        ],
-        [
-            "\ud83d\ude2d",
-            "\ud83d\ude02",
-            "\ud83d\ude22"
-        ],
-        [
-            "\ud83d\ude2d",
-            "\ud83d\ude02\ud83d\ude02",
+            "\ud83d\udc4d\ud83d\udc4d",
             "\ud83d\ude02"
         ],
         [
-            "\ud83d\ude02\ud83d\ude02",
-            "\ud83d\ude2d\ud83d\udc80",
-            "\ud83d\ude22"
-        ],
-        [
-            "\ud83d\ude02\ud83d\ude02",
-            "\ud83d\ude02",
-            "\ud83d\ude2d"
-        ],
-        [
-            "\ud83d\ude02",
             "\ud83d\ude2d",
-            "\ud83d\ude02\ud83d\ude02"
-        ],
-        [
-            "\ud83d\ude02\ud83d\ude02",
             "\ud83d\udc4d\ud83d\udc4d",
-            "\ud83d\ude22"
+            "\ud83d\ude02"
         ],
         [
+            "\ud83d\udc4d\ud83d\udc4d",
             "\ud83d\ude22",
-            "\ud83d\ude2d\ud83d\udc80",
-            "\ud83d\ude2d"
+            "\ud83d\ude02"
+        ],
+        [
+            "\ud83d\ude02",
+            "\ud83d\ude2d",
+            "\ud83d\ude22"
         ],
         [
             "\ud83d\udc4d\ud83d\udc4d",
-            "\ud83d\ude2d",
+            "\ud83d\ude22",
             "\ud83d\ude02\ud83d\ude02"
         ],
         [
-            "\ud83d\ude2d\ud83d\udc80",
-            "\ud83d\ude2d",
+            "\ud83d\udc4d\ud83d\udc4d",
+            "\ud83d\ude02",
             "\ud83d\ude02\ud83d\ude02"
+        ],
+        [
+            "\ud83d\ude2d",
+            "\ud83d\ude2d\ud83d\udc80",
+            "\ud83d\ude22"
+        ],
+        [
+            "\ud83d\ude02",
+            "\ud83d\ude02\ud83d\ude02",
+            "\ud83d\ude2d\ud83d\udc80"
+        ],
+        [
+            "\ud83d\ude2d\ud83d\udc80",
+            "\ud83d\ude22",
+            "\ud83d\ude02\ud83d\ude02"
+        ],
+        [
+            "\ud83d\ude02\ud83d\ude02",
+            "\ud83d\ude2d",
+            "\ud83d\udc4d\ud83d\udc4d"
         ]
     ],
     "busiest_day_arr": [
-        "07-07-26",
-        "10-07-26"
+        "04-08-26"
     ],
     "longest_silence": 3600.0,
-    "average_resp_time": 8.0,
+    "average_resp_time": 8,
     "tprsbycprs_arr": [
-        623.2758620689655,
-        646.551724137931,
-        772.695652173913,
-        833.434650455927,
-        625.3156146179402,
-        655.7986870897155,
-        217.2496025437202,
-        618.4090909090909,
-        659.5169082125603,
-        608.0645161290323
+        806.5158371040724,
+        648.8255033557047,
+        807.1698113207547,
+        623.6762225969646,
+        615.0,
+        646.3345195729537,
+        214.02637703646238,
+        660.9473684210526,
+        649.3193717277487,
+        613.1049250535332
     ],
-    "totalMsg": 7239,
+    "totalMsg": 7283,
+    "totalwords": 82113,
     "editCounter": [
-        327,
-        34,
-        36,
-        41,
-        37,
-        24,
-        95,
-        22,
-        43,
-        21
+        45,
+        26,
+        26,
+        42,
+        19,
+        336,
+        93,
+        20,
+        38,
+        23
     ],
-    "maxFriend": 484,
-    "bestFri1": 5,
-    "bestFri2": 7
+    "maxFriend": 524.0,
+    "Best Friends with Kahan Atara": 4,
+    "Best Friends with Piusa Das": 9,
+    "bestFriends": [
+        4,
+        9
+    ],
+    "length": 10,
+    "longvocarray": [
+        291,
+        4353,
+        190,
+        222,
+        162,
+        243,
+        618,
+        923,
+        181,
+        164
+    ]
 }

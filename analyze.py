@@ -24,10 +24,11 @@ nightMsg=[0 for _ in range(n)]
 #dirRep=np.array([0,0,0,0,0,0,0])#Number of direct replies received by the person
 tprs=[0 for _ in range(n)]#stores sum of times of direct replies by each person
 cprs=[0 for _ in range(n)]#stores number of direct replies by each person
-tRep=[]#Stores all reply times
+tRep=np.array([])#Stores all reply times
 editCount=[0 for _ in range(n)]
 maxT=0
 convoStart=[0 for _ in range(n)]
+longVocabArr=[0 for _ in range(n)]
 totalMsg=0
 line1=""
 d={}
@@ -36,8 +37,9 @@ I=0
 J=0
 emojiL=[{} for _ in range(n)]
 top3_emoji=[]
-tprsbycprs=[]
-pairFrd=[[0 for _ in range(n)] for _ in range(n)]
+tprsbycprs=[0 for _ in range(n)]
+pairFrd=np.zeros((n,n))
+print("shape: ",pairFrd.shape)
 emoji_pattern = re.compile(
     "["
     "\U0001F600-\U0001F64F"  # emoticons
@@ -52,8 +54,18 @@ def contains_emoji(text):
 with open("chat.txt", "r", encoding="utf-8") as f:
     for line in f:
         #if ("[THIS MESSAGE WAS EDITED]" in line):
+        lengthLine=line.strip().split()
+        numSplitCol=len(line.strip().split(":"))
+        wordsNum=0
+        LongVocCheck=0
+        for i in range(2,numSplitCol):
+            wordsNum+=len(line.strip().split(":")[i].strip().split())
+            for j in line.strip().split(":")[i].strip().split():
+                if (len(j)>=12):
+                    LongVocCheck+=1
         person = line.strip().split("-")[3].strip().split(":")[0].strip()
         per=dc[person]
+        longVocabArr[per]+=LongVocCheck
         fields = line.strip().split()   # default: splits by whitespace
         for x in fields:
             if contains_emoji(x):
@@ -64,7 +76,7 @@ with open("chat.txt", "r", encoding="utf-8") as f:
         #dayNum = fields[1]
         time = fields[1]
         count[per]+=1
-        words[per]+=len(line.strip().split(":")[2].strip().split())
+        words[per]+=wordsNum
         h=int(time.split(":")[0])
         if (h>=0 and h<=3):
             nightMsg[per]+=1
@@ -85,7 +97,7 @@ with open("chat.txt", "r", encoding="utf-8") as f:
                 tprs[per]+=diff.total_seconds()
                 #print(fields[1]," ",diff.total_seconds())
                 cprs[per]+=1
-                tRep.append(diff.total_seconds())
+                tRep=np.append(tRep,diff.total_seconds())
                 pairFrd[per][dc[line1.strip().split("-")[3].strip().split(":")[0].strip()]]+=1
         if fields[0].split(",")[0] in d:
             d[fields[0].split(",")[0]]+=1
@@ -111,11 +123,13 @@ for t in d:
 print(dc)
 print("d = ",d)
 print("Busiest: ",busiest)
-tRep.sort()
+np.sort(tRep)
 l=len(tRep)
-avgRepT=(1/60)*(tRep[int(l/2)]+tRep[int((l-1)/2)])/2
+#avgRepT=(1/60)*(tRep[int(l/2)]+tRep[int((l-1)/2)])/2
+avgRespTimenumpy=(1/60)*np.median(tRep)
+print("Averag numpy respT: ", avgRespTimenumpy)
 print("Longest silence = ",maxT," sec")
-print("Avg Resp Time = ",avgRepT, " min")
+#print("Avg Resp Time = ",avgRepT, " min")
 print("convoStart = ",convoStart)
 print("Count arr = ",count)
 print("Words arr = ",words)
@@ -132,10 +146,11 @@ print("Edit Count: ",editCount)
 print("I: ",inv_dc[I])
 print("J: ",inv_dc[J])
 print("maxFri: ",maxFri)
+print("longvocarray: ",longVocabArr)
 #print("dirRep: ",dirRep)
 #print("tRep: ",tRep)
 for i in range(n):
-    tprsbycprs.append(tprs[i]/cprs[i])
+    tprsbycprs[i]=(tprs[i]/cprs[i])
     #print("tprs/cprs of ",i," : ",tprs[i]/cprs[i])
 for i in range(len(emojiL)):
     emojiL[i]=dict(sorted(emojiL[i].items(),key=lambda a:-a[1]))
@@ -154,27 +169,111 @@ for i in range(len(emojiL)):
 #print(inv_dc)
 #print(emojiL)
 #print(top3_emoji)
+longMsgPer=0
+#print(f"wordslong/countlong={words[longMsgPer]/count[longMsgPer]}")
+for i in range(n):
+    #print(f"words{i}/count{i}: {words[i]/count[i]}")
+    if ((words[i]/count[i])>(words[longMsgPer]/count[longMsgPer])):
+        longMsgPer=i
+print("longMsgPer: ",longMsgPer)
+nightowl=0
+'''for i in range(n):
+    if ((nightMsg[i])>(nightMsg[nightowl])):
+        nightowl=i
+print("nightowl: ",nightowl)'''
+conver=0
+'''for i in range(n):
+    if ((convoStart[i])>(convoStart[nightowl])):
+        conver=i
+print("conver: ",conver)'''
+ghost=0
+'''for i in range(n):
+    if ((cprs[i])<(cprs[ghost])):
+        ghost=i
+print("ghost: ",ghost)'''
+def cMax(arr,var,str):
+    for i in range(n):
+        if (arr[i]>arr[var]):
+            var=i
+    print(f"{str}: ",var)
+    return var
+def cMin(arr,var,str):
+    for i in range(n):
+        if (arr[i]<arr[var]):
+            var=i
+    print(f"{str}: ",var)
+    return var
+nightowl=cMax(nightMsg,nightowl,"nightowl")
+conver=cMax(convoStart,conver,"conver")
+ghost=cMin(cprs,ghost,"ghost")
+#cMax(EmojiaRR)
+hypeper=0
+hypeper=cMax(count,hypeper,"hypeper")
+print(hypeper)
+editorP=0
+editorP=cMax(editCount,editorP,"editorP")
+avgRespTime=int(avgRespTimenumpy)
+sum=np.zeros(n)
+for i in range(n):
+    for x in emojiL[i]:
+        sum[i]+=emojiL[i][x]
+emojiTalk=0
+emojiSum=list(sum)
+emojiTalk=cMax(sum,emojiTalk,"emojiTalk")
+longVocaber=0
+longVocaber=cMax(longVocabArr,longVocaber,"longVocaber")
+bf1="Best Friends with "+inv_dc[J]
+bf2="Best Friends with "+inv_dc[I]
+#bf1="Best Friend 1"
+#bf2="Best Friend 2"
+totalWords=np.array(words)
+TotalWords=int(np.sum(totalWords))
 chat_stats = {
     "dict": dc,
     "inv_dict": inv_dc,
+    "Long Messager": longMsgPer,
+    "Night Owl": nightowl,
+    "Conversation Starter": conver,
+    "Ghost": ghost,
+    "Hype Person": hypeper,
+    "Message Editor": editorP,
+    "Long Vocabulary User": longVocaber,
     "total_messages_arr": count,
     "total_words_arr": words,
     "night_msg_arr": nightMsg,
     "count_rep_arr": cprs,
     "convoStart_arr": convoStart,
     "emoji_arr": emojiL,
+    "Emoji Talker": emojiTalk,
+    "total_emoji_per_person": emojiSum,
     "top3_emoji_arr": top3_emoji,
     "busiest_day_arr": busiest,
     "longest_silence": maxT,
-    "average_resp_time": avgRepT,
+    "average_resp_time": avgRespTime,
     "tprsbycprs_arr": tprsbycprs,
     "totalMsg": totalMsg,
+    "totalwords": TotalWords,
     "editCounter": editCount,
     "maxFriend": maxFri,
-    "bestFri1": I,
-    "bestFri2": J
+    bf1: I,
+    bf2: J,
+    "bestFriends": (I,J),
+    "length": n,
+    "longvocarray": longVocabArr
 }
 with open('data.json', 'w') as f:
     json.dump(chat_stats, f, indent=4)
 
 print("Data successfully exported to data.json")
+print(emojiL)
+#LongMsg_DONE
+#NightOwl_DONE
+#ConvoStarter_DONE
+#Ghost_DONE
+#EmojiTalker_DONE
+#HypePer_DONE
+#LongVocab_TBD
+#Editor_DONE
+#Bestfrd1_DONE
+#Bestfrd2_DONE
+#Global Stats to be shown too
