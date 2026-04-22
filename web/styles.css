@@ -29,6 +29,8 @@ body {
 
 .slide.active { display: flex; animation: slideFade 0.5s ease-out; }
 
+@keyframes slideFade { from { opacity: 0; } to { opacity: 1; } }
+
 .glass-panel {
     background: var(--glass-fill);
     backdrop-filter: blur(15px);
@@ -66,6 +68,12 @@ body {
     z-index: 2;
 }
 
+@keyframes moveName {
+    0% { transform: translate(0,0) rotate(0deg); }
+    50% { transform: translate(4vw, 4vh) rotate(4deg); }
+    100% { transform: translate(0,0) rotate(0deg); }
+}
+
 .layout-wrapper { width: 100%; max-width: 1100px; }
 .slide-heading { font-size: 2.5rem; margin-bottom: 30px; text-align: center; }
 .stats-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 25px; }
@@ -92,6 +100,7 @@ body {
 .character { color: yellow; }
 
 .pulse-text { animation: pulse 2s infinite; color: var(--slate); }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 .emoji-label {
     display: block;
     margin-bottom: 12px;
@@ -107,4 +116,109 @@ body {
     justify-content: center;
     flex-wrap: wrap;
     margin-top: 5px;
+}
+.heatmap-grid {
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: repeat(var(--total-days,7), 1fr); 
+    gap: 4px;
+    width: 100%;
+    margin: 0;
+}
+
+.heat-cell {
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 2px;
+    transition: transform 0.2s;
+}
+
+.heat-cell:hover {
+    transform: scale(1.5);
+    z-index: 10;
+    outline: 1px solid #fff;
+}
+
+/*Conditional Formatting Levels*/
+.lvl-0 { background-color: rgba(255, 255, 255, 0.05); }
+.lvl-1 { background-color: #1e3a8a; } /*Deep Blue*/
+.lvl-2 { background-color: #3b82f6; } /*Bright Blue*/
+.lvl-3 { background-color: #60a5fa; } /*Sky Blue*/
+.lvl-4 { background-color: #93c5fd; } /*Max Intensity*/
+
+.profile-layout {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    width: 95%;
+    max-width: 1400px;
+    height: 85vh;
+    margin: 0 auto 80px auto;
+    align-items: center;
+}
+
+.chart-main {
+    flex: 1.5;
+    display: flex;
+    flex-direction: column;
+    min-height: 0px;
+    max-height: 450px;
+    overflow: hidden;
+}
+
+.canvas-wrapper {
+    flex: 1;
+    width: 100%;
+    min-height: 0px;
+    position: relative;
+}
+
+
+.heatmap-section {
+    padding: 20px;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;;
+}
+
+.profile-card {
+    flex: 0 0 350px;
+    height: fit-content;
+    padding: 40px;
+    text-align: center;
+}
+
+.heatmap-section .label {
+    font-size: 0.75rem;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.heatmap-grid {
+    display: grid;
+    justify-content: start;
+    grid-template-columns: repeat(49, 1fr);
+    gap: 1px;
+    max-width: 600px;
+    width: 100%;
+    margin: 0;
+}
+
+.user-display-name {
+    font-size: 2rem;
+    margin: 10px 0;
+    color: white;
+}
+
+.selection-grid {
+    max-height: 70vh;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+.profile-main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
 }

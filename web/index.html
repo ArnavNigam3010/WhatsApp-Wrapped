@@ -82,116 +82,68 @@
         </section>
 
         <section class="slide dark-bg" data-slide="5">
-            <h2 class="slide-heading">Select Profiles</h2>
-            <div id="userGrid" class="selection-grid"></div>
-        </section>
-
-        <section class="slide profile-bg" id="profileSlide" data-slide="6">
-            <div class="profile-layout">
-                <div class="glass-panel profile-card">
-                    <div id="pInitial" class="avatar-circle"></div>
-                    <h2 id="pName" class="user-display-name">User</h2>
-                    <h2 id="IDpName" class="user-display-name"><span id="person" class="character"></span></h2>
-                    <div class="stat-rows">
-                        <div class="row"><span>Messages Sent</span><span id="pMessages" class="txt-blue">0</span></div>
-                        <div class="row"><span>Total Words Used</span><span id="pWords" class="txt-blue">0</span></div>
-                        <div class="row"><span>Average Response Time</span><span id="pResponse" class="txt-green">0m</span></div>
-                        <div class="emoji-label">Top 3 Emojis</div> <div id="pEmojis" class="emoji-tray"></div>
-                    </div>
-                    <div id="pEmojis" class="emoji-tray"></div>
-                </div>
-                <div class="glass-panel chart-main">
-                    <h3 class="chart-label">User Activity Metrics</h3>
-                    <div class="canvas-wrapper">
-                        <canvas id="userHourlyChart"></canvas>
+            <div class="layout-wrapper">
+                <h2 class="slide-heading">Conversation Starter</h2>
+                <div class="stats-grid">
+                    <div class="glass-panel" style="padding: 10px; height: 400px; width: 1050px">
+                        <canvas id="convoChart"></canvas>
                     </div>
                 </div>
             </div>
         </section>
+
+        <section class="slide dark-bg" data-slide="6">
+            <div class="layout-wrapper">
+                <h2 class="slide-heading">Emojis Used</h2>
+                <div class="stats-grid">
+                    <div class="glass-panel" style="padding: 10px; height: 400px; width: 1050px">
+                        <canvas id="emojiChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="slide dark-bg" data-slide="7">
+            <h2 class="slide-heading">Select Profiles</h2>
+            <div id="userGrid" class="selection-grid"></div>
+        </section>
+
+        <section class="slide profile-bg" id="profileSlide" data-slide="8">
+<div class="profile-layout">
+    <div class="glass-panel profile-card">
+        <div id="pInitial" class="avatar-circle"></div>
+        <h2 id="pName" class="user-display-name">User</h2>
+        <h2 id="IDpName" class="user-display-name"><span id="person" class="character"></span></h2>
+        <div class="stat-rows">
+            <div class="row"><span>Messages Sent</span><span id="pMessages" class="txt-blue">0</span></div>
+            <div class="row"><span>Total Words Used</span><span id="pWords" class="txt-blue">0</span></div>
+            <div class="row"><span>Average Response Time</span><span id="pResponse" class="txt-green">0m</span></div>
+            <div class="emoji-label">Top 3 Emojis</div> 
+            <div id="pEmojis" class="emoji-tray"></div>
+        </div>
+    </div>
+
+    <div class="profile-main-content">
+        
+        <div class="glass-panel chart-main">
+            <h3 class="chart-label">User Activity Metrics</h3>
+            <div class="canvas-wrapper">
+                <canvas id="userHourlyChart"></canvas>
+            </div>
+        </div>
+        <div class="glass-panel heatmap-section">
+            <h4 class="label">Activity Heatmap</h4>
+            <div id="heatmapGrid" class="heatmap-grid"></div>
+        </div>
+
+    </div>
+</div>
+        
+    </div>
+</section>
+
     </main>
 
     <script src="app.js"></script>
 </body>
 </html>
-
-<!--<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat Wrapped 2026</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="chart.js"></script>
-</head>
-<body class="theme-dark">
-
-    <div class="nav-container">
-        <button id="prevBtn" class="glass-btn">Back</button>
-        <button id="nextBtn" class="glass-btn primary-btn">Next</button>
-    </div>
-
-    <main id="slideshow-container">
-        <section class="slide active intro-bg">
-            <div id="bgNameContainer" class="name-overlay"></div>
-            <div class="intro-content">
-                <h1 class="title-hero">OUR YEAR IN <span class="highlight">CHAT.</span></h1>
-                <p class="pulse-text">Click anywhere to begin</p>
-            </div>
-        </section>
-
-        <section class="slide">
-            <div class="layout-wrapper">
-                <h2 class="slide-heading">The Big Picture</h2>
-                <div class="stats-grid">
-                    <div class="glass-panel chart-area">
-                        <canvas id="globalActivityChart"></canvas>
-                    </div>
-                    <div class="sidebar-stats">
-                        <div class="glass-panel info-card">
-                            <span class="label">Total Messages</span>
-                            <div id="totalMsgCount" class="stat-val">0</div>
-                        </div>
-                        <div class="glass-panel info-card">
-                            <span class="label">Busiest Day</span>
-                            <div id="topDayVal" class="stat-val-small">...</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="slide dark-bg">
-            <h2 class="slide-heading">Select Profiles</h2>
-            <div id="userGrid" class="selection-grid"></div>
-            
-            <button id="launchBtn" class="launch-action-btn">
-                Launch Selected Wrapped →
-            </button>
-        </section>
-
-        <section class="slide profile-bg">
-            <div id="playlistCounter" class="playlist-badge"></div>
-            <div class="profile-layout">
-                <div class="glass-panel profile-card">
-                    <div id="pInitial" class="avatar-box"></div>
-                    <h2 id="pName" class="user-display-name">User</h2>
-                    <div class="stat-rows">
-                        <div class="row"><span>Messages</span><span id="pMessages" class="txt-blue">0</span></div>
-                        <div class="row"><span>Words</span><span id="pWords" class="txt-blue">0</span></div>
-                        <div class="row"><span>Response</span><span id="pResponse" class="txt-green">0m</span></div>
-                    </div>
-                    <div id="pEmojis" class="emoji-tray"></div>
-                </div>
-                <div class="glass-panel chart-main">
-                    <h3 class="chart-label">Engagement Breakdown</h3>
-                    <div class="canvas-wrapper">
-                        <canvas id="userHourlyChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <script src="app.js"></script>
-</body>
-</html>-->

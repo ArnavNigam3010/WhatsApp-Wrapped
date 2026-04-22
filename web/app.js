@@ -1,16 +1,16 @@
 let chatData = null;
 let currentSlide = 0;
-let userChartInstance = null;
+let userChartInstance = null; // Important: Used to prevent chart ghosting
 const slides = document.querySelectorAll('.slide');
 let y= new Set();
 let chosen=[];
 let i1=-1;
 let y1=[];
-let slidenum=6;
+let slidenum=8;
 
 async function init() {
     try {
-        const response = await fetch('../data.json');
+        const response = await fetch('data.json');
         
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -20,10 +20,12 @@ async function init() {
         console.log("Offline Data Loaded:", chatData);
 
         setupBackgroundNames();
+        //setupMemberSlide();
         setupGlobalStats();
         globalStats2();
         updateSlides();
         let x=setupUserGrid();
+        //multiSelect();//setupUserGrid();
         
     } catch (err) {
         console.error("Initialization failed:", err);
@@ -167,6 +169,137 @@ function setupNightChart() {
         }
     });
 }
+function setupEditedChart() {
+    const ctx = document.getElementById('editChart').getContext('2d');
+    
+    const labels = Object.values(chatData.inv_dict);
+    
+    const dataPoints = chatData.editCounter; 
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Number of Edits',
+                data: dataPoints,
+                borderColor: '#3b82f6',
+                backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                borderWidth: 3,
+                tension: 0,
+                pointBackgroundColor: '#3b82f6',
+                pointRadius: 5,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                    ticks: { color: '#94a3b8' }
+                },
+                x: {
+                    grid: { display: false },
+                    ticks: { color: '#94a3b8' }
+                }
+            }
+        }
+    });
+}
+
+function setupConvoChart() {
+    const ctx = document.getElementById('convoChart').getContext('2d');
+    
+    const labels = Object.values(chatData.inv_dict);
+    
+    const dataPoints = chatData.convoStart_arr; 
+
+    new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Conversations Started',
+                data: dataPoints,
+                borderColor: '#3b82f6',
+                backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                borderWidth: 3,
+                pointBackgroundColor: '#3b82f6',
+                pointRadius: 5,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                r: {
+                    beginAtZero: true,
+                    grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                    ticks: { color: '#94a3b8' }
+                }
+            }
+        }
+    });
+}
+
+function setupEmojiChart() {
+    const ctx = document.getElementById('emojiChart').getContext('2d');
+    
+    const labels = Object.values(chatData.inv_dict);
+    const nightData = chatData.total_emoji_per_person;
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Emojis Used',
+                data: nightData,
+                backgroundColor: 'rgba(99, 102, 241, 0.5)',
+                borderColor: '#6366f1',
+                borderWidth: 2,
+                borderRadius: 8,
+                hoverBackgroundColor: '#818cf8'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            
+            plugins: {
+                legend: { display: false }
+            },
+            
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                    ticks: { color: '#94a3b8' }
+                },
+                x: {
+                    grid: { display: false },
+                    ticks: { 
+                        color: '#94a3b8'
+                    }
+                }
+            }
+        }
+    });
+}
 function setupGlobalStats() {
     document.getElementById('totalMsgCount').innerText = chatData.totalMsg.toLocaleString();
     
@@ -212,8 +345,15 @@ function setupGlobalStats() {
 }
 
 function globalStats2(){
+    //Number of People in the Chat
+    //Total Messages, Total Words
+    //Busiest Day, Longest Silence
+    //Number of messages Edited
     setupWordsChart();
     setupNightChart();
+    setupEditedChart();
+    setupConvoChart();
+    setupEmojiChart();
 }
 
 function setupUserGrid() {
@@ -242,12 +382,15 @@ function setupUserGrid() {
                 y1=[...y];
             }
             else{
+                //card.style.background="rgba(255, 255, 255, 0.03)";
+                //card.style["border-color"] = "rgba(255, 255, 255, 0.1)";
                 card.style.background="";
                 card.style["border-color"] = "";
                 y.delete(id);
                 y1=[...y];
             }
-            e.stopPropagation();
+            e.stopPropagation(); // Prevents slide from advancing
+            //showUserProfile(id);
         };
         grid.appendChild(card);
     });
@@ -288,15 +431,17 @@ function showUserProfile(id) {//HEATMAPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
     userChartInstance = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['Total', 'Night Owl', 'Edits', 'Starters'],
+            labels: ['Night Messages', 'Edits', 'Conversations Started','Emojis','Long Messages'],
             datasets: [{
                 data: [
-                    chatData.total_messages_arr[idx],
+                    //chatData.total_messages_arr[idx],
                     chatData.night_msg_arr[idx],
                     chatData.editCounter[idx],
-                    chatData.convoStart_arr[idx]
+                    chatData.convoStart_arr[idx],
+                    chatData.total_emoji_per_person[idx],
+                    chatData.total_words_arr[idx]/chatData.total_messages_arr[idx]
                 ],
-                backgroundColor: ['#3b82f6', '#6366f1', '#ec4899', '#10b981'],
+                backgroundColor: ['#3b82f6', '#6366f1', '#ec4899', '#10b981', '#1eb910'],
                 borderRadius: 8
             }]
         },
@@ -316,7 +461,44 @@ function showUserProfile(id) {//HEATMAPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
     });
 
     currentSlide=slidenum;
+    renderUserHeatmap(id)
     updateSlides();
+}
+function renderUserHeatmap(personIdx) {
+    const container = document.getElementById('heatmapGrid');
+    if (!container) return;
+    container.innerHTML = '';
+    const totalDays = chatData.number_of_days;
+    container.style.setProperty('--total-days', totalDays);
+
+    const personData = chatData.todd[personIdx];
+    if (!personData) return; 
+
+    let maxVal = 0;
+    personData.forEach(dayArray => {
+        dayArray.forEach(val => { if (val > maxVal) maxVal = val; });
+    });
+
+    for (let bracketIdx = 0; bracketIdx < 12; bracketIdx++) {
+        for (let dayIdx = 0; dayIdx < totalDays; dayIdx++) {
+            const msgCount = personData[dayIdx][bracketIdx]; 
+            const cell = document.createElement('div');
+            cell.className = 'heat-cell';
+            
+            if (msgCount === 0 || maxVal === 0) {
+                cell.classList.add('lvl-0');
+            } else {
+                const intensity = msgCount / maxVal;
+                if (intensity < 0.25) cell.classList.add('lvl-1');
+                else if (intensity < 0.50) cell.classList.add('lvl-2');
+                else if (intensity < 0.75) cell.classList.add('lvl-3');
+                else cell.classList.add('lvl-4');
+            }
+
+            cell.title = `Day ${dayIdx}, Time ${bracketIdx*2}-${(bracketIdx+1)*2}h: ${msgCount} msgs`;
+            container.appendChild(cell);
+        }
+    }
 }
 
 function updateSlides() {
@@ -374,5 +556,13 @@ document.getElementById('prevBtn').onclick = (e) => {
         }
     }
 };
+
+// Global click to begin (Slides 0 to 1)
+/*window.onclick = () => {
+    if (currentSlide < 2 && chatData) {
+        currentSlide++;
+        updateSlides();
+    }
+};*/
 
 init();
