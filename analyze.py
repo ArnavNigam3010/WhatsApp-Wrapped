@@ -6,6 +6,9 @@ import json
 #Ghost direct reply
 n=0
 dc={}
+day1=0
+daylast=0
+numline=0
 def num():
     global n,dc
     s=set()
@@ -17,6 +20,7 @@ def num():
                 n+=1
                 s.add(pers)
 num()
+#heatmap=[[[0 for _ in range(n)] for _ in range(12)] for _ in range(days)]
 count=[0 for _ in range(n)]
 print(count)
 words=[0 for _ in range(n)]
@@ -53,6 +57,7 @@ def contains_emoji(text):
     return bool(emoji_pattern.search(text))
 with open("chat.txt", "r", encoding="utf-8") as f:
     for line in f:
+        numline+=1
         #if ("[THIS MESSAGE WAS EDITED]" in line):
         lengthLine=line.strip().split()
         numSplitCol=len(line.strip().split(":"))
@@ -107,6 +112,30 @@ with open("chat.txt", "r", encoding="utf-8") as f:
             editCount[per]+=1
             words[per]-=4
         line1=line #end
+with open ("chat.txt","r",encoding="utf-8") as file:
+    linect=1
+    for line in file:
+        if (linect==1):
+            day1=line.strip().split(",")[0]
+        if (linect==numline):
+            daylast=line.strip().split(",")[0]
+        linect+=1
+date_format = "%d-%m-%y"
+start_date = datetime.strptime(day1, date_format)
+end_date = datetime.strptime(daylast, date_format)
+numdays = abs(end_date - start_date).days
+numdays+=1
+print(numdays)
+toddarr=[[[0 for _ in range(12)] for _ in range(numdays)] for _ in range(n)]
+with open ("chat.txt","r",encoding="utf-8") as file:
+    for line in file:
+        day=line.strip().split(",")[0]
+        time=int(line.strip().split(",")[1].strip().split(":")[0])
+        day_int=(datetime.strptime(day, date_format) - start_date).days
+        time_int = int(time/2)
+        person0 = line.strip().split("-")[3].strip().split(":")[0].strip()
+        per0=dc[person0]
+        toddarr[per0][day_int][time_int]+=1
 m=0
 for i in range(n):
     for j in range(i,n):
@@ -127,7 +156,7 @@ np.sort(tRep)
 l=len(tRep)
 #avgRepT=(1/60)*(tRep[int(l/2)]+tRep[int((l-1)/2)])/2
 avgRespTimenumpy=(1/60)*np.median(tRep)
-print("Averag numpy respT: ", avgRespTimenumpy)
+print("Average numpy respT: ", avgRespTimenumpy)
 print("Longest silence = ",maxT," sec")
 #print("Avg Resp Time = ",avgRepT, " min")
 print("convoStart = ",convoStart)
@@ -203,6 +232,7 @@ def cMin(arr,var,str):
             var=i
     print(f"{str}: ",var)
     return var
+print(toddarr[1])
 nightowl=cMax(nightMsg,nightowl,"nightowl")
 conver=cMax(convoStart,conver,"conver")
 ghost=cMin(cprs,ghost,"ghost")
@@ -259,7 +289,9 @@ chat_stats = {
     bf2: J,
     "bestFriends": (I,J),
     "length": n,
-    "longvocarray": longVocabArr
+    "longvocarray": longVocabArr,
+    "todd": toddarr,
+    "number_of_days": numdays
 }
 with open('data.json', 'w') as f:
     json.dump(chat_stats, f, indent=4)
