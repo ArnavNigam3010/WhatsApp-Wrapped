@@ -8,7 +8,11 @@
     <script src="chart.js"></script>
 </head>
 <body class="theme-dark">
-
+    <div class="click-regions-overlay">
+    <div id="region-prev" class="region"></div>
+    <div id="region-center" class="region"></div>
+    <div id="region-next" class="region"></div>
+</div>
     <div class="nav-container">
         <button id="prevBtn" class="glass-btn">Back</button>
         <button id="nextBtn" class="glass-btn primary-btn">Next</button>
@@ -19,7 +23,7 @@
             <div id="bgNameContainer" class="name-overlay"></div>
             <div class="intro-content">
                 <h1 class="title-hero">OUR ACTIVITY IN <span class="highlight">CHAT.</span></h1>
-                <p class="pulse-text">Click anywhere to begin</p>
+                <p class="pulse-text">Let's dive into our chat history!</p>
             </div>
         </section>
 
@@ -42,6 +46,14 @@
                         <div class="glass-panel info-card">
                             <span class="label">Total Words Used</span>
                             <div id="wordCt" class="stat-val"></div>
+                        </div>
+                        <div class="glass-panel info-card">
+                            <span class="label">Busiest Day(s)</span>
+                            <div id="busyday" class="stat-val">0</div>
+                        </div>
+                        <div class="glass-panel info-card">
+                            <span class="label">Longest Silence</span>
+                            <div id="longsil" class="stat-val">0</div>
                         </div>
                     </div>
                 </div>
@@ -115,9 +127,11 @@
         <h2 id="pName" class="user-display-name">User</h2>
         <h2 id="IDpName" class="user-display-name"><span id="person" class="character"></span></h2>
         <div class="stat-rows">
-            <div class="row"><span>Messages Sent</span><span id="pMessages" class="txt-blue">0</span></div>
-            <div class="row"><span>Total Words Used</span><span id="pWords" class="txt-blue">0</span></div>
+            <div class="row"><span>Messages Sent</span><span id="pMessages" class="txt-blue">0</span></div>            
             <div class="row"><span>Average Response Time</span><span id="pResponse" class="txt-green">0m</span></div>
+            <div class="row"><span>Total Words Used</span><span id="pWords" class="txt-orange">0</span></div>
+            <div class="row"><span>Long Words Used</span><span id="pLong" class="txt-orange">0</span></div>
+            <div class="row"><span>Emojis Used</span><span id="pEmoji" class="txt-orange">0</span></div>
             <div class="emoji-label">Top 3 Emojis</div> 
             <div id="pEmojis" class="emoji-tray"></div>
         </div>
@@ -141,6 +155,36 @@
         
     </div>
 </section>
+        <section class="slide dark-bg" data-slide="9">
+            <div class="layout-wrapper">
+                <h2 class="slide-heading">Comparison Table</h2>
+                <div class="stats-grid">
+                    <div class="glass-panel" style="padding: 10px; height: 400px; width: 1050px">
+                        <table table-border="10px" border-color="white" id="comptab">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Messages</th>
+                                <th>Words</th>
+                                <th>Night Messages</th>
+                                <th>Edited Messages</th>
+                                <th>Conversations Started</th>
+                                <th>Emojis Used</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tabledata"></tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="tys" class="slide active intro-bg" data-slide="10">
+            <div id="bgEmotionsContainer" class="name-overlay"></div>
+            <div class="intro-content">
+                <h1 id="lastsld" class="title-hero"></h1>
+            </div>
+        </section>
 
     </main>
 

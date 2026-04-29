@@ -32,6 +32,9 @@ body {
 @keyframes slideFade { from { opacity: 0; } to { opacity: 1; } }
 
 .glass-panel {
+    position: relative;
+    z-index: 10; 
+    pointer-events: auto;
     background: var(--glass-fill);
     backdrop-filter: blur(15px);
     border: 1px solid var(--glass-edge);
@@ -67,6 +70,14 @@ body {
     animation: moveName linear infinite;
     z-index: 2;
 }
+.floating-emotions {
+    position: absolute;
+    white-space: nowrap;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.08);
+    animation: moveName linear infinite;
+    z-index: 2;
+}
 
 @keyframes moveName {
     0% { transform: translate(0,0) rotate(0deg); }
@@ -79,9 +90,9 @@ body {
 .stats-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 25px; }
 .chart-area { padding: 30px; height: 400px; }
 .sidebar-stats { display: flex; flex-direction: column; gap: 20px; padding-bottom: 80px; }
-.info-card { padding: 25px; text-align: center; }
+.info-card { padding: 10px; text-align: center;}
 .label { font-size: 1.2rem; font-weight: 500; text-transform: uppercase; color: var(--slate); letter-spacing: 1px; }
-.stat-val { font-size: 3.5rem; font-weight: 700; color: var(--accent); }
+.stat-val { font-size: 2rem; font-weight: 700; color: var(--accent); }
 
 .selection-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; width: 100%; max-width: 1000px; }
 .selection-grid .glass-panel { padding: 20px; cursor: pointer; text-align: center; transition: 0.3s; }
@@ -89,12 +100,13 @@ body {
 
 .profile-bg { background: linear-gradient(to bottom, #0f172a, #000000); }
 .profile-layout { display: grid; grid-template-columns: 350px 1fr; gap: 30px; width: 100%; max-width: 1200px; }
-.profile-card { padding: 40px; text-align: center; }
+.profile-card { padding: 40px; text-align: center; margin-top: 72px; }
 .avatar-circle { width: 90px; height: 90px; background: var(--accent); border-radius: 20px; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; font-weight: 700; }
 .stat-rows { width: 100%; margin: 25px 0; }
 .row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--glass-edge); }
 .txt-blue { color: var(--accent); font-weight: 700; }
 .txt-green { color: #4ade80; font-weight: 700; }
+.txt-orange { color: orange; font-weight: 700; }
 .chart-main { padding: 30px; }
 .canvas-wrapper { height: 350px; }
 .character { color: yellow; }
@@ -104,6 +116,7 @@ body {
 .emoji-label {
     display: block;
     margin-bottom: 12px;
+    margin-top: 12px;
     font-size: 0.8rem;
     color: var(--slate);
     text-transform: uppercase;
@@ -121,7 +134,8 @@ body {
     flex-grow: 1;
     display: grid;
     grid-template-columns: repeat(var(--total-days,7), 1fr); 
-    gap: 4px;
+    grid-template-rows : repeat(12,1fr);
+    gap: 1px;
     width: 100%;
     margin: 0;
 }
@@ -193,7 +207,7 @@ body {
     margin-bottom: 15px;
     display: block;
 }
-
+/*
 .heatmap-grid {
     display: grid;
     justify-content: start;
@@ -203,6 +217,7 @@ body {
     width: 100%;
     margin: 0;
 }
+    */
 
 .user-display-name {
     font-size: 2rem;
@@ -211,6 +226,9 @@ body {
 }
 
 .selection-grid {
+    position: relative;
+    z-index: 10; 
+    pointer-events: auto;
     max-height: 70vh;
     overflow-y: auto;
     padding-right: 10px;
@@ -221,4 +239,74 @@ body {
     flex-direction: column;
     gap: 20px;
     height: 100%;
+}
+
+.click-regions-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    z-index: 5;
+    pointer-events: none; 
+}
+
+.region {
+    height: 100%;
+    pointer-events: auto;
+}
+
+#region-prev, #region-center, #region-next {
+    flex: 1;
+}
+/* Container for the bar */
+.progress-track {
+    width: 100%;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.05); /* Muted glassy track */
+    border-radius: 10px;
+    overflow: hidden; /* Clips the fill to the rounded edges */
+    margin: 10px 0;
+}
+
+/* The actual progress indicator */
+.progress-fill {
+    height: 100%;
+    background: var(--accent); /* Uses your #3b82f6 blue */
+    width: 0%; /* Initially empty, updated by JS */
+    transition: width 1s ease-out; /* Animates when the slide opens */
+    border-radius: 10px;
+}
+
+#comptab {
+    text-align: center;
+    font-size: 1rem;
+    color: var(--accent);
+    font-weight: 700;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    text-align: center;
+    color: yellow;
+
+    font-weight: 700;
+    /*border: 2px solid rgba(255, 255, 255, 0.1);*/ 
+    padding: 12px;
+    border-bottom: 3px solid var(--accent);
+    border-top: 3px solid var(--accent);
+}
+
+#comptab td {
+    border-bottom: 1px solid var(--glass-edge);
+    /*font-size: 1.5rem;*/
+    padding: 6px 15px;
+}
+
+#names{
+    text-align: center;
+    color: orange;
+    font-weight: 700;
 }
