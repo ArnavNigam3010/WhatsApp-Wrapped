@@ -1,3 +1,4 @@
+import sys
 import numpy as np
 import re
 from datetime import datetime
@@ -51,7 +52,7 @@ emoji_pattern = re.compile( # to check for emojis
 )
 def contains_emoji(text): # checks if text contains emojis
     return bool(emoji_pattern.search(text))
-with open("chat.txt", "r", encoding="utf-8") as f: # reads chat line by line
+with open(sys.argv[1], "r", encoding="utf-8") as f: # reads chat line by line
     for line in f:
         numline+=1
         lengthLine=line.strip().split()
@@ -103,7 +104,7 @@ with open("chat.txt", "r", encoding="utf-8") as f: # reads chat line by line
             editCount[per]+=1
             words[per]-=4
         lineprev=line # end of file reading
-with open ("chat.txt","r",encoding="utf-8") as file: # to find first and last day
+with open (sys.argv[1],"r",encoding="utf-8") as file: # to find first and last day
     linect=1
     for line in file:
         if (linect==1):
@@ -119,7 +120,7 @@ numdays = abs(end_date - start_date).days
 numdays+=1
 print(numdays)
 toddarr=[[[0 for _ in range(12)] for _ in range(numdays)] for _ in range(n)] # stores data for heatmap
-with open ("chat.txt","r",encoding="utf-8") as file:
+with open (sys.argv[1],"r",encoding="utf-8") as file:
     for line in file:
         day=line.strip().split(",")[0]
         time=int(line.strip().split(",")[1].strip().split(":")[0])

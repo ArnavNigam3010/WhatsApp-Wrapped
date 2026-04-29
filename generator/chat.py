@@ -1,3 +1,4 @@
+import sys
 import numpy as np
 from numpy import random
 import random
@@ -62,7 +63,7 @@ with open("chat.txt", "w", encoding="utf-8"):
 
 tokens = [] #stores the words in the vocabulary
 
-with open("vocabulary.txt", "r", encoding="utf-8") as file:
+with open(sys.argv[1], "r", encoding="utf-8") as file:
     for line in file:
         parts=line.strip().split(",")
         tokens.extend(parts) #storing words
