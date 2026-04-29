@@ -54,7 +54,40 @@ Then go to following URL
 http://localhost:8000/web/index.html
 
 ```
-
+## JSON Schema 
+* "dict": dc,
+* "inv_dict": inv_dc,
+*   "Long Messager": longMsgPer,
+*    "Night Owl": nightowl,
+*    "Conversation Starter": conver,
+*    "Ghost": ghost,
+*    "Hype Person": hypeper,
+*    "Message Editor": editorP,
+*    "Long Vocabulary User": longVocaber,
+*    "total_messages_arr": count,
+*    "total_words_arr": words,
+*    "night_msg_arr": nightMsg,
+*    "count_rep_arr": cprs,
+*    "convoStart_arr": convoStart,
+*    "emoji_arr": emojiL,
+*    "Emoji Talker": emojiTalk,
+*    "total_emoji_per_person": emojiSum,
+*    "top3_emoji_arr": top3_emoji,
+*    "busiest_day_arr": busiest,
+*    "longest_silence": maxT,
+*    "average_resp_time": avgRespTime,
+*    "tprsbycprs_arr": tprsbycprs,
+*    "totalMsg": totalMsg,
+*    "totalwords": TotalWords,
+*    "editCounter": editCount,
+*    "maxFriend": maxFri,
+*    bf1: I,
+*    bf2: J,
+*    "bestFriends": (I,J),
+*    "length": n,
+*    "longvocarray": longVocabArr,
+*    "todd": toddarr,
+*    "number_of_days": numdays
 ## Authors
 Parth Vartak
 
