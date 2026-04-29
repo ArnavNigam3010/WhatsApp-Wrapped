@@ -4,19 +4,17 @@ import random
 import re
 from datetime import datetime,timedelta
 
-
+#code cleanup, comments filtering, removing unnecessar code, but still need the previous portions of the code for detailing in the challenges
 """
 1. Vectorization - converting to numpy
 2. HTML/CSS Multi
 3. Saare ek jagah
 4. Slideshow
 5. NLTK
-6. Online //lalla
-7. Comparison slides - graphs for several stuff in one/subplots
-8. @ //lalla
+6. Comparison slides - graphs for several stuff in one/subplots
 """
 """"
-Merge commit: NLTK, Vectorization
+Merge commit: NLTK
 """
 '''
 IDEAS
@@ -48,42 +46,40 @@ NEXT TBD
 #Emoji talker///
 #Chhota msg
 #Lamba vocab user///
-#Best friends
-#3rd day talker
+#Best friends 1 and 2
 #editor most
 
 
-#Probability of each x[0] messaging at time t and the message too
-#Prev message, x[0] who sent prev msg, time of prev msg
+#Probability of each person messaging at time t and the message too
+#Prev message, person who sent prev msg, time of prev msg
 #who, kya, time delay, time randomness
-#who -> prev x[0], time of the day (wrt x[0] being night owl or not)
-#kya -> x[0]ality (emoji/lamba vocab/chhota msg)
+#who -> prev person, time of the day (wrt person being night owl or not)
+#kya -> personality (emoji/lamba vocab/chhota msg)
 #time delay -> rand (weighted wrt time of the day), prev msg time
 
 with open("chat.txt", "w", encoding="utf-8"):
     pass
 
-tokens = []
+tokens = [] #stores the words in the vocabulary
 
 with open("vocabulary.txt", "r", encoding="utf-8") as file:
     for line in file:
         parts=line.strip().split(",")
-        tokens.extend(parts)
+        tokens.extend(parts) #storing words
 
-vocab={}
+vocab={} #converting tokens to numbers for orderly access
 for word in tokens:
     if word not in vocab:
-        vocab[word]=len(vocab)
+        vocab[word]=len(vocab) #Ensures only unique words are taken
 
-arr=np.array([vocab[word] for word in tokens])
+numwords=len(vocab)
 
 #print("Tokens: ", tokens)
 #print("Vocab: ", vocab)
 #print("Words: ", word)
-#print("Array: ", arr)
 
 
-inv_vocab = {i: w for w,i in vocab.items()}
+inv_vocab = {i: w for w,i in vocab.items()} #stores word corresponding to a number
 #print(inv_vocab)
 
 #0 LongMsg
@@ -93,52 +89,29 @@ inv_vocab = {i: w for w,i in vocab.items()}
 #4 Emoji
 #5 HypePer
 #6 LongVocab
-'''Using re lib seems like the work done is the same only in both the cases
+#7 Editor
+#8 BestFrd 1
+#9 BestFrd 2
 
-
-tokens1 = []
-
-with open("vocabulary.txt", "r", encoding="utf-8", errors="ignore") as file:
-    for line in file:'''
-        #parts=re.findall(r'\b\w+\b', line.lower())
-        #tokens1.extend(parts)
-
-'''vocab1={}
-
-for word in tokens1:
-    if word not in vocab1:
-        vocab1[word]=len(vocab1)
-
-token_ids = np.array([vocab1[word] for word in tokens1], dtype=np.int32)
-
-print("Tokens: ", tokens1)
-print("Vocab: ", vocab1)
-print("Token IDs: ", token_ids)'''
-#NLP Track Trigram word use
-'''x = np.random.randint(1030, size=np.random.randint(1,11))
-#print(x)
-s=""
-for i in x:
-    s+=(inv_vocab[i]+" ")
-print(s)'''
+#global var
 ttime=0
 players=[0,1,2,3,4,5,6,7,8,9]
 playerName=["Arnav Nigam","Sanidhya Saraf","Sahil Deo","Vishad Jain","Parth Vartak","Garv Pahwa","Ujjwal Kesari","Chirayu Jain","Kahan Atara","Piusa Das"]
-prob=np.array([0.105,0.105,0.075,0.034,0.105,0.29,0.106,0.106,0.037,0.037])
-tmin=1
-tmax=1200
-tap=0
-prev=-1
+prob=np.array([0.105,0.105,0.075,0.034,0.105,0.29,0.106,0.106,0.037,0.037]) #probability distribution array for chat corresponding to each person
+tmin=1                      #message interval lower bound while picking randomly
+tmax=1200                   #message interval upper bound while picking randomly
+tap=0                       #Time of message After Previous msg (basically time interval between two messages)
+prev=-1                     #index of previous person initialised to -1 to prevent ambiguities
 emojis=[]
 longvocabs=[]
-d = datetime(2026, 7, 1, 0, 0)
-def pMod(i,s):
+d = datetime(2026, 7, 1, 0, 0) #startdate and time
+def pMod(i,s): #Skews the probability in favour of one person selectively
     global prob
     prob[i]*=s
     prob=prob/prob.sum()
-def is_LongVocab(token):
+def is_LongVocab(token): #Checks long word
     return bool(len(token)>=12)
-emoji_pattern = re.compile(
+emoji_pattern = re.compile( #checks emoji
     "["
     "\U0001F600-\U0001F64F"  # emoticons
     "\U0001F300-\U0001F5FF"  # symbols & pictographs
@@ -147,33 +120,25 @@ emoji_pattern = re.compile(
     "]+",
     flags=re.UNICODE
 )
-def contains_emoji(text):
+def contains_emoji(text): #checks if text contains emoji
     return bool(emoji_pattern.search(text))
-def LongVocabArr():
+def LongVocabArr(): #array of long words
     global longvocabs
-    for i in range(arr.size-1):
+    for i in range(numwords-1):
         s=inv_vocab[i]
         if((not contains_emoji(s)) and is_LongVocab(s)):
             longvocabs.append(i)
 LongVocabArr()
-def EmojiArr():
+def EmojiArr(): #array of emojis
     global emojis
-    for i in range(arr.size-1):
+    for i in range(numwords-1):
         s=inv_vocab[i]
         if (contains_emoji(s)):
             #print(s)
             emojis.append(i)
 EmojiArr()
 #print(emojis)
-def LongVocab():
-    global ttime
-    global prob
-    global players
-    global tmin
-    global tmax
-    global tap
-    global emojis
-    global longvocabs
+def LongVocab(): #returns a string containing proportionally higher long words
     z=np.random.randint(1,18)
     s=""
     while(z>0):
@@ -182,18 +147,11 @@ def LongVocab():
             y=np.random.choice(longvocabs)
             s+=inv_vocab[y]+" "
         else:
-            y1=np.random.randint(0,arr.size-1)
+            y1=np.random.randint(0,numwords-1)
             s+=inv_vocab[y1]+" "
         z-=1
     return s
-def EmojiTalker():
-    global ttime
-    global prob
-    global players
-    global tmin
-    global tmax
-    global tap
-    global emojis
+def EmojiTalker():#returns a string containing proportionally higher number of emojis
     z=np.random.randint(1,18)
     s=""
     while(z>0):
@@ -202,25 +160,15 @@ def EmojiTalker():
             y=np.random.choice(emojis)
             s+=inv_vocab[y]+" "
         else:
-            y1=np.random.randint(0,arr.size-1)
+            y1=np.random.randint(0,numwords-1)
             s+=inv_vocab[y1]+" "
         z-=1
     return s
-#print(np.random.choice(emojis))
-def LongMsg():
-    p=[0,0.01,0.01,0.002,0.01,0.01,0.01,0.2,0.3,0.286]
-    cump=[0,0,0,0,0,0,0,0,0,0]
-    prev1=0
-    for i in range(0,10):
-        cump[i]=prev1+p[i]
-        prev1=cump[i]
-    y=np.random.rand()
-    #print(y)
-    z=0
-    for i in range(0,10):
-        if (y<cump[i]):
-            z=i
-            break
+def LongMsg():#returns a long message whose length is skewed towards a higher number of words using array p
+    arr=np.arange(10)
+    p1=np.array([0,0.01,0.01,0.002,0.01,0.01,0.01,0.2,0.3,0.286])
+    p1=p1/p1.sum()
+    z=np.random.choice(arr,p=p1)
     x2 = np.random.randint(1030, size=np.random.randint(5*z+1,5*z+6))
     s1=""
     for i in x2:
@@ -229,22 +177,7 @@ def LongMsg():
     #print(s1)
     return s1
 #LongMsg()
-def printer():
-    '''time=[0.3,0.3,0.01,0.01,0.01,0.1,0.1,0.05,0.05,0.03,0.03,0.01]
-    ctime=[0,0,0,0,0,0,0,0,0,0,0,0]
-    prev=0
-    for i in range(0,12):
-        ctime[i]=prev+time[i]
-        prev=ctime[i]
-    y=np.random.rand()
-    print(y)
-    z=0
-    for i in range(0,12):
-        if (y<ctime[i]):
-            z=i
-            break
-    h=np.random.randint(z,z+2)
-    m=np.random.randint(60)'''
+def printer():#general message generator for personalities whose effect doesn't come on their message length
     x3 = np.random.randint(1030, size=np.random.randint(1,18))
     s1=""
     for i in x3:
@@ -254,13 +187,9 @@ def printer():
     #print(s1)
     return s1
 #NightOwl()
-def NightOwl():
-    global ttime
-    global prob
-    global players
+def NightOwl():#Modifies the time bounds to make messages sparse at night
     global tmin
     global tmax
-    global tap
     if (ttime%86400>0 and ttime%86400<14400):
         tmin=600
         tmax=3600
@@ -268,39 +197,16 @@ def NightOwl():
     else:
         tmin=1
         tmax=1200
-def ConvoStarter():
-    global ttime
-    global prob
-    global players
-    global tmin
-    global tmax
-    global tap
-    global prev
+def ConvoStarter():#When the time interval crosses a particular bound it increases the probability of the convoStart person to initiate the convo
     if(tap>0.8*tmax):
         pMod(2,3)
-def Ghost():
-    global ttime
-    global prob
-    global players
-    global tmin
-    global tmax
-    global tap
-    global prev
+def Ghost():#When previous message is by Ghost, increases prob of Ghost messaging again, going on a messaging spree, thus messaging in sparse clusters
     if(prev==3):
         pMod(3,50)
-def HypePer():
+def HypePer():#Effectively makes the tap to tap/3 for HypePerson
     global ttime
-    global prob
-    global players
-    global tmin
-    global tmax
-    global tap
-    global prev
     ttime-=2*tap/3
-def bestFrds():
-    global prev
-    global prob
-    global players
+def bestFrds():#Alternate messaging higher prob between best friends
     if (prev==8):
         pMod(9,35)
     elif (prev==9):
@@ -313,79 +219,42 @@ def ChatGen():
     global tmax
     global tap
     global prev
-    '''
-    cprob=[0,0,0,0,0,0,0]
-    for i in range(0,7):
-        if (i==0):
-            cprob[i]=prob[i]
-        cprob[i]=cprob[i-1]+prob[i]
-
-    '''
-    orig=prob.copy()
+    orig=prob.copy()#creates a copy of prob array, to be modified, so that original array is not lost
     #print(orig, "ORIG")
-    orig=orig/orig.sum()
-    while (ttime<=4200000):
+    orig=orig/orig.sum()#normalisation
+    while (ttime<=8400000):
         NightOwl()
-        tap=np.random.randint(tmin,tmax)
-        #print("wgsf ",prob)
-        #print("ORIG ", orig)
+        tap=np.random.randint(tmin,tmax)#randomly choses a time interval betweeen two messages
         ConvoStarter()
         Ghost()
         bestFrds()
         #call all functions here after modifying probabilities
         #HypePer() to be called only when HypePer is the chosen per
-        #prob=np.array(prob)
         prob = prob/prob.sum()
-        #print(prob)
         x=int(np.random.choice(players,p=prob))
-        #print(x)
-        
-        #else:
-            #cprob1=cprob
-        #print(prob)
-        #per=np.random.rand()
-        #print(cprob1)
-        #print("Per: ",per)
-        '''x[0]=0
-        for i in range(0,7):
-            if (per<cprob1[i]):
-                x[0]=i
-                break
-        '''
-        #print("x[0]: ", x[0])
-        ttime+=tap
+        ttime+=tap#updates the time of current message
         if (x==0):#LongMsg
             s=playerName[x]+": "+LongMsg()
             prev=0
-            #print(s)
         elif (x==1):#NightOwl
-           # NightOwl()
             s=playerName[x]+": "+printer()
             prev=1
-            #print(s)
         elif (x==2):#ConvoStarter
-            #ConvoStarter()
             s=playerName[x]+": "+printer()
             prev=2
-            #print(s)
         elif (x==3):#Ghost
-            #Ghost()
             s=playerName[x]+": "+printer()
             prev=3
-            #print(s)
         elif (x==4):#EmojiTalker
             s=playerName[x]+": "+EmojiTalker()
             prev=4
-            #print(s)
         elif (x==5):#HypePer
             HypePer()
             s=playerName[x]+": "+printer()
             prev=5
-            #print(s)
         elif (x==6):#LongVocab
             s=playerName[x]+": "+LongVocab()
             prev=6
-            #print(s)
         elif (x==7):#editor
             prev=7
             s=playerName[x]+": "+printer()
@@ -395,17 +264,17 @@ def ChatGen():
         elif (x==9):#bestFrd2
             prev=9
             s=playerName[x]+": "+printer()
-        delta = timedelta(seconds=ttime)
-        result=d+delta
-        result=result.strftime("%d-%m-%y, %H:%M ")
+        delta = timedelta(seconds=ttime) #convert the current ttime to a datetime obj
+        result=d+delta #datetime obj of current message time updated using the initial reference time (d)
+        result=result.strftime("%d-%m-%y, %H:%M ")#formatting
         tday=ttime%86400
         h=int(tday/3600)
         m=int((tday%3600)/60)
-        with open ("chat.txt", "a", encoding="utf-8") as f:
+        with open ("chat.txt", "a", encoding="utf-8") as f:#writing into chat.txt line by line
             f.write(str(result)+"- ")
             f.write(s)
             f.write(" ")
-            x1=np.random.rand()
+            x1=np.random.rand()#probabilistic determination of the message being edited
             if (x==7):
                 if (x1>0.5):
                     f.write("[THIS MESSAGE WAS EDITED]")
@@ -413,5 +282,5 @@ def ChatGen():
                 if (x1>0.95):
                     f.write("[THIS MESSAGE WAS EDITED]")
             f.write("\n")
-        prob=orig.copy()
+        prob=orig.copy()#updating prob
 ChatGen()
