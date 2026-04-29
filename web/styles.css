@@ -1,0 +1,312 @@
+:root {
+    --bg-black: #020617;
+    --accent: #3b82f6;
+    --slate: #94a3b8;
+    --cardHead: #f6ff00;
+    --glass-fill: rgba(255, 255, 255, 0.03);
+    --glass-edge: rgba(255, 255, 255, 0.1);
+}
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-black);
+    color: white;
+    overflow: hidden;
+}
+
+.slide {
+    display: none;
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0; left: 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+.slide.active { display: flex; animation: slideFade 0.5s ease-out; }
+
+@keyframes slideFade { from { opacity: 0; } to { opacity: 1; } }
+
+.glass-panel {
+    position: relative;
+    z-index: 10; 
+    pointer-events: auto;
+    background: var(--glass-fill);
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-edge);
+    border-radius: 24px;
+}
+
+.nav-container { position: fixed; bottom: 30px; right: 30px; z-index: 99; display: flex; gap: 15px; }
+.glass-btn {
+    padding: 12px 28px;
+    border: 1px solid var(--glass-edge);
+    background: var(--glass-fill);
+    color: white;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.primary-btn { background: var(--accent); border: none; }
+.primary-btn:hover { background: #2563eb; }
+
+.intro-bg { background: radial-gradient(circle at center, #1e1b4b 0%, #020617 100%); }
+.name-overlay { position: absolute; inset: 0; overflow: hidden; z-index: 1; }
+.intro-content { position: relative; z-index: 10; text-align: center; pointer-events: none; }
+.title-hero { font-size: 5.5rem; font-weight: 900; margin: 0; letter-spacing: -3px; }
+.highlight { color: var(--accent); }
+
+.floating-name {
+    position: absolute;
+    white-space: nowrap;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.08);
+    animation: moveName linear infinite;
+    z-index: 2;
+}
+.floating-emotions {
+    position: absolute;
+    white-space: nowrap;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.08);
+    animation: moveName linear infinite;
+    z-index: 2;
+}
+
+@keyframes moveName {
+    0% { transform: translate(0,0) rotate(0deg); }
+    50% { transform: translate(4vw, 4vh) rotate(4deg); }
+    100% { transform: translate(0,0) rotate(0deg); }
+}
+
+.layout-wrapper { width: 100%; max-width: 1100px; }
+.slide-heading { font-size: 2.5rem; margin-bottom: 30px; text-align: center; }
+.stats-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 25px; }
+.chart-area { padding: 30px; height: 400px; }
+.sidebar-stats { display: flex; flex-direction: column; gap: 20px; padding-bottom: 80px; }
+.info-card { padding: 10px; text-align: center;}
+.label { font-size: 1.2rem; font-weight: 500; text-transform: uppercase; color: var(--slate); letter-spacing: 1px; }
+.stat-val { font-size: 2rem; font-weight: 700; color: var(--accent); }
+
+.selection-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; width: 100%; max-width: 1000px; }
+.selection-grid .glass-panel { padding: 20px; cursor: pointer; text-align: center; transition: 0.3s; }
+.selection-grid .glass-panel:hover { border-color: var(--accent); background: rgba(59,130,246,0.15); }
+
+.profile-bg { background: linear-gradient(to bottom, #0f172a, #000000); }
+.profile-layout { display: grid; grid-template-columns: 350px 1fr; gap: 30px; width: 100%; max-width: 1200px; }
+.profile-card { padding: 40px; text-align: center; margin-top: 72px; }
+.avatar-circle { width: 90px; height: 90px; background: var(--accent); border-radius: 20px; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; font-weight: 700; }
+.stat-rows { width: 100%; margin: 25px 0; }
+.row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--glass-edge); }
+.txt-blue { color: var(--accent); font-weight: 700; }
+.txt-green { color: #4ade80; font-weight: 700; }
+.txt-orange { color: orange; font-weight: 700; }
+.chart-main { padding: 30px; }
+.canvas-wrapper { height: 350px; }
+.character { color: yellow; }
+
+.pulse-text { animation: pulse 2s infinite; color: var(--slate); }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+.emoji-label {
+    display: block;
+    margin-bottom: 12px;
+    margin-top: 12px;
+    font-size: 0.8rem;
+    color: var(--slate);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.emoji-tray {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 5px;
+}
+.heatmap-grid {
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: repeat(var(--total-days,7), 1fr); 
+    grid-template-rows : repeat(12,1fr);
+    gap: 1px;
+    width: 100%;
+    margin: 0;
+}
+
+.heat-cell {
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 2px;
+    transition: transform 0.2s;
+}
+
+.heat-cell:hover {
+    transform: scale(1.5);
+    z-index: 10;
+    outline: 1px solid #fff;
+}
+
+/*Conditional Formatting Levels*/
+.lvl-0 { background-color: rgba(255, 255, 255, 0.05); }
+.lvl-1 { background-color: #1e3a8a; } /*Deep Blue*/
+.lvl-2 { background-color: #3b82f6; } /*Bright Blue*/
+.lvl-3 { background-color: #60a5fa; } /*Sky Blue*/
+.lvl-4 { background-color: #93c5fd; } /*Max Intensity*/
+
+.profile-layout {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    width: 95%;
+    max-width: 1400px;
+    height: 85vh;
+    margin: 0 auto 80px auto;
+    align-items: center;
+}
+
+.chart-main {
+    flex: 1.5;
+    display: flex;
+    flex-direction: column;
+    min-height: 0px;
+    max-height: 450px;
+    overflow: hidden;
+}
+
+.canvas-wrapper {
+    flex: 1;
+    width: 100%;
+    min-height: 0px;
+    position: relative;
+}
+
+
+.heatmap-section {
+    padding: 20px;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;;
+}
+
+.profile-card {
+    flex: 0 0 350px;
+    height: fit-content;
+    padding: 40px;
+    text-align: center;
+}
+
+.heatmap-section .label {
+    font-size: 0.75rem;
+    margin-bottom: 15px;
+    display: block;
+}
+/*
+.heatmap-grid {
+    display: grid;
+    justify-content: start;
+    grid-template-columns: repeat(49, 1fr);
+    gap: 1px;
+    max-width: 600px;
+    width: 100%;
+    margin: 0;
+}
+    */
+
+.user-display-name {
+    font-size: 2rem;
+    margin: 10px 0;
+    color: white;
+}
+
+.selection-grid {
+    position: relative;
+    z-index: 10; 
+    pointer-events: auto;
+    max-height: 70vh;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+.profile-main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+}
+
+.click-regions-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    z-index: 5;
+    pointer-events: none; 
+}
+
+.region {
+    height: 100%;
+    pointer-events: auto;
+}
+
+#region-prev, #region-center, #region-next {
+    flex: 1;
+}
+/* Container for the bar */
+.progress-track {
+    width: 100%;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.05); /* Muted glassy track */
+    border-radius: 10px;
+    overflow: hidden; /* Clips the fill to the rounded edges */
+    margin: 10px 0;
+}
+
+/* The actual progress indicator */
+.progress-fill {
+    height: 100%;
+    background: var(--accent); /* Uses your #3b82f6 blue */
+    width: 0%; /* Initially empty, updated by JS */
+    transition: width 1s ease-out; /* Animates when the slide opens */
+    border-radius: 10px;
+}
+
+#comptab {
+    text-align: center;
+    font-size: 1rem;
+    color: var(--accent);
+    font-weight: 700;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    text-align: center;
+    color: yellow;
+
+    font-weight: 700;
+    /*border: 2px solid rgba(255, 255, 255, 0.1);*/ 
+    padding: 12px;
+    border-bottom: 3px solid var(--accent);
+    border-top: 3px solid var(--accent);
+}
+
+#comptab td {
+    border-bottom: 1px solid var(--glass-edge);
+    /*font-size: 1.5rem;*/
+    padding: 6px 15px;
+}
+
+#names{
+    text-align: center;
+    color: orange;
+    font-weight: 700;
+}
